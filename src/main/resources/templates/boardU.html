@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>개인프로젝트</title>
+    <link rel="stylesheet" th:href="@{/css/board.css}">
+</head>
+<body>
+  <div id="add" th:if="${user==null}">
+    <button class="v1" th:onclick="|location.href='@{/add}'|">회원가입</button>
+    <button class="v2" th:onclick="|location.href='@{/login}'|">로그인</button>
+  </div>
+  <div id="add2" th:if="${user!=null}">
+    <button class="v1" th:onclick="|location.href='@{/}'|" th:text="|${user.name}님|"></button>
+    <button class="v2" th:onclick="|location.href='@{/logout}'|">로그아웃</button>
+  </div>
+<div id="header">
+  <div id="logo">
+    <div><a th:href="@{/}">project</a></div>
+  </div>
+</div>
+<div id="menu">
+  <ul>
+    <li><a th:href="@{/board/list}"><span style="color: yellow; font-weight: bold">갤러리</span></a></li>
+    <li><a href="">목록2</a></li>
+    <li><a href="">목록3</a></li>
+    <li><a href="">목록4</a></li>
+    <li><a href="">목록5</a></li>
+    <li><a href="">목록6</a></li>
+    <li><a href="">목록7</a></li>
+    <li><a href="">목록8</a></li>
+    <li><a href="">목록9</a></li>
+  </ul>
+</div>
+<div id="content">
+  <h2 class="writing-header">게시물 수정</h2>
+  <form action="" id="form" class="frm" th:object="${boardDto}">
+    <input type="hidden" th:field="*{bno}"  readonly>
+    <input type="hidden" th:field="*{writer}" readonly>
+    <input type="text" th:field="*{title}" >
+    <textarea th:field="*{content}" cols="30" rows="10"></textarea>
+    <button type="button" id="modifyBtn" class="btn">저장</button>
+    <button type="button" id="listBtn" class="btn">취소</button>
+  </form>
+</div>
+<script th:inline="javascript">
+  /*<![CDATA[*/
+    document.addEventListener("DOMContentLoaded", function() {
+      const listBtn = document.getElementById("listBtn");
+      listBtn.addEventListener("click", function() {
+        location.href = /*[[@{/board/list}]]*/;
+      });
+
+      const modifyBtn = document.getElementById("modifyBtn");
+      modifyBtn.addEventListener("click", function() {
+      const form = document.getElementById("form");
+      form.setAttribute("action", /*[[@{/board/modify}]]*/);
+      form.setAttribute("method", "post");
+      form.submit();
+      })
+
+    });
+  /*]]>*/
+</script>
+</body>
+</html>

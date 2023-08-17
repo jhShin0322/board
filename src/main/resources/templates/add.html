@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>개인프로젝트</title>
+    <link rel="stylesheet" th:href="@{/css/add.css}">
+    <style>
+        form div {
+            color: red; margin-left: 150px; margin-bottom: 0.3em;
+        }
+
+        form div p {
+            position: relative;
+            left: 55px;
+            top: 70px;
+        }
+    </style>
+</head>
+<body>
+<div id="header">
+    <div><a th:href="@{/}">project</a></div>
+</div>
+<div id="content">
+
+    <form th:action="@{/add}" th:object="${user}" method="post">
+        <div th:if="${#fields.hasGlobalErrors()}">
+            <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">글로벌 오류 메시지</p>
+        </div>
+        <input type="text" th:field="*{loginId}" placeholder="아이디" autocomplete="off"><br>
+        <div th:errors="*{loginId}"></div>
+        <input type="password" th:field="*{password}" placeholder="비밀번호" ><br>
+        <div th:errors="*{password}"></div>
+        <input type="text" th:field="*{name}" placeholder="이름" autocomplete="off"><br>
+        <div th:errors="*{name}"></div>
+        <input type="text" th:field="*{birth}" placeholder="생년월일 ex)19990101" autocomplete="off"><br>
+        <div th:errors="*{birth}"></div>
+        <input type="submit" value="회원가입"><br>
+    </form>
+</div>
+</body>
+</html>

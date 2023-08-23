@@ -8,11 +8,11 @@
         values (#{loginId}, #{password}, #{name}, #{birth});
     </insert>
 
-    <select id="findByLoginId" parameterType="com.example.board.domain.User" resultType="com.example.board.domain.User">
+    <select id="findByLoginId" parameterType="String" resultType="com.example.board.domain.User">
         select * from user where login_id = #{loginId};
     </select>
 
-    <select id="login" parameterType="com.example.board.domain.User" resultType="com.example.board.domain.User">
+    <select id="login" parameterType="String" resultType="com.example.board.domain.User">
         select * from user where login_id = #{loginId} and password = #{password};
     </select>
 </mapper>

@@ -2,7 +2,6 @@ package com.example.board.controller;
 
 import com.example.board.domain.User;
 import com.example.board.repository.UserDao;
-import com.example.board.repository.UserDaoImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,8 +21,8 @@ public class LoginController {
     private final UserDao userDao;
 
     @Autowired
-    public LoginController(UserDaoImpl userDaoImpl) {
-        this.userDao = userDaoImpl;
+    public LoginController(UserDao userDao) {
+        this.userDao = userDao;
     }
 
     @GetMapping("/add")

@@ -50,19 +50,22 @@
   </div>
   <form id="commentForm">
     <input type="hidden" id="bno" th:value="${boardDto.bno}">
-    <input type="hidden" id="writer" th:value="${boardDto.writer}">
-    <textarea class="comment" name="comment" id="comment" cols="30" rows="10" placeholder="댓글을 입력하세요"></textarea>
+    <input type="hidden" th:if="${user!=null}" th:id="commenter" th:value="${user.name}">
+    <input type="hidden" th:unless="${user!=null}" th:id="commenter" th:value="'익명 사용자'">
+    <textarea class="comment" name="comment" id="comment" cols="30" rows="6" placeholder="댓글을 입력하세요"></textarea>
     <button type="button" id="submitComment">댓글 등록</button>
   </form>
 </div>
+
 <script>
   $(document).ready(function() {
     $("#submitComment").click(function() {
       var bno = $("#bno").val();
-      var writer = $("#writer").val()
+      var commenter = $("#commenter").val()
       var content = $("#comment").val();
-      var comment = { "bno": bno,
-        "writer" : writer,
+      var comment = {
+        "bno": bno,
+        "commenter" : commenter,
         "content": content };
 
       $.ajax({
@@ -82,6 +85,62 @@
       });
     });
   });
+
+  function fetchComments() {
+    $.ajax({
+      url: "/getComments",
+      type: "GET",
+      dataType: "json",
+      success: function(comments) {
+        // 댓글 목록을 표시할 요소를 가져옴
+        var commentList = $("#commentList");
+
+        // 댓글 목록을 초기화
+        commentList.empty();
+
+        // 댓글 목록을 반복하여 화면에 추가
+        comments.forEach(function(comment) {
+          var commentHtml = `
+                    <div class="commentCreate">
+                        <table>
+                            <tr>
+                                <td style="width: 150px">${comment.commenter}</td><td>${comment.content}</td>
+                            </tr>
+                        </table>
+
+                    </div>
+                `;
+          commentList.append(commentHtml);
+        });
+      }
+    });
+  }
+
+  // 페이지 로드 시 댓글 목록을 가져옴
+  $(document).ready(function() {
+    fetchComments();
+  });
+
+  function addCommentAndRefresh() {
+    var content = $("#content").val();
+    var comment = { "content": content };
+
+    $.ajax({
+      url: "/addComment",
+      type: "POST",
+      contentType: "application/json",
+      data: JSON.stringify(comment),
+      success: function(response) {
+        if (response === "success") {
+          // 댓글 등록 성공 시 댓글 목록을 업데이트
+          fetchComments();
+          $("#content").val(""); // 입력 필드 초기화
+        } else {
+          alert("댓글 등록에 실패했습니다.");
+        }
+      }
+    });
+  }
 </script>
 <script th:inline="javascript">
 <!-- 수정 삭제 목록 버튼 이벤트 -->

@@ -5,6 +5,7 @@ import com.example.board.domain.User;
 import com.example.board.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,8 +21,7 @@ public class CommentController {
 
     @PostMapping("/addComment")
     @ResponseBody
-    public String addComment(@SessionAttribute(name = "loginUser", required = false) User loginUser, @RequestBody Comment comment) {
-
+    public String addComment(@RequestBody Comment comment, Model model) {
         commentService.addComment(comment);
         return "success";
     }

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>개인프로젝트</title>
     <link rel="stylesheet" th:href="@{/css/board.css}">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
   <div id="add" th:if="${user==null}">
@@ -38,13 +39,52 @@
     <input type="hidden" th:field="*{bno}" readonly>
     <input type="hidden" th:field="*{writer}" readonly>
     <input type="text" th:field="*{title}" readonly>
-    <textarea th:field="*{content}" cols="30" rows="10" readonly></textarea>
+    <textarea class="content" th:field="*{content}" cols="30" rows="10" readonly></textarea>
     <button type="button" id="modifyBtn" class="btn">수정</button>
     <button type="button" id="removeBtn" class="btn">삭제</button>
     <button type="button" id="listBtn" class="btn">목록</button>
   </form>
+  <h3 class="writing-header">전체 댓글</h3>
+  <div id="commentList">
+    <!-- 댓글 목록이 여기에 동적으로 추가될 것입니다. -->
+  </div>
+  <form id="commentForm">
+    <input type="hidden" id="bno" th:value="${boardDto.bno}">
+    <input type="hidden" id="writer" th:value="${boardDto.writer}">
+    <textarea class="comment" name="comment" id="comment" cols="30" rows="10" placeholder="댓글을 입력하세요"></textarea>
+    <button type="button" id="submitComment">댓글 등록</button>
+  </form>
 </div>
+<script>
+  $(document).ready(function() {
+    $("#submitComment").click(function() {
+      var bno = $("#bno").val();
+      var writer = $("#writer").val()
+      var content = $("#comment").val();
+      var comment = { "bno": bno,
+        "writer" : writer,
+        "content": content };
+
+      $.ajax({
+        url: "/addComment",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify(comment),
+        success: function(response) {
+          if (response === "success") {
+            // 댓글 등록 성공 시 처리
+            alert("댓글이 등록되었습니다.");
+            // 페이지 새로고침 또는 댓글 목록 갱신
+          } else {
+            alert("댓글 등록에 실패했습니다.");
+          }
+        }
+      });
+    });
+  });
+</script>
 <script th:inline="javascript">
+<!-- 수정 삭제 목록 버튼 이벤트 -->
   /*<![CDATA[*/
     document.addEventListener("DOMContentLoaded", function() {
       const listBtn = document.getElementById("listBtn");

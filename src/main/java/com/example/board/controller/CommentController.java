@@ -21,7 +21,7 @@ public class CommentController {
 
     @PostMapping("/addComment")
     @ResponseBody
-    public String addComment(@RequestBody Comment comment, Model model) {
+    public String addComment(@RequestBody Comment comment) {
         commentService.addComment(comment);
         return "success";
     }

@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.board.repository.CommentMapper">
     <insert id="insertComment" useGeneratedKeys="true" keyProperty="cno" parameterType="com.example.board.domain.Comment">
-        insert into comment (bno, content, commenter, reg_date) values (#{bno}, #{content}, #{commenter}, now());
+        insert into comment (bno, content, commenter, reg_date) values (#{bno}, #{content}, #{commenter}, now())
     </insert>
 
     <select id="getComments" resultType="com.example.board.domain.Comment">

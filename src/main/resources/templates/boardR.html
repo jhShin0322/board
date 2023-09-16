@@ -63,10 +63,12 @@
       var bno = $("#bno").val();
       var commenter = $("#commenter").val()
       var content = $("#comment").val();
+      var regDate ="";
       var comment = {
         "bno": bno,
         "commenter" : commenter,
-        "content": content };
+        "content": content,
+        "regDate": regDate};
 
       $.ajax({
         url: "/addComment",
@@ -104,7 +106,7 @@
                     <div class="commentCreate">
                         <table>
                             <tr>
-                                <td style="width: 150px">${comment.commenter}</td><td>${comment.content}</td>
+                                <td style="width: 150px">${comment.commenter}</td><td style="width: 1000px">${comment.content}</td><td>${comment.regDate}</td>
                             </tr>
                         </table>
 

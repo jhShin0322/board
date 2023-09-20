@@ -192,7 +192,16 @@ form input {
 #commentForm {
     display: block;
     width: 70%;
-    margin: 0 auto 3em;
+    margin: 3em auto 3em;
+}
+
+#commentList {
+    display: block;
+    width: 70%;
+    margin: 0 auto;
+    border-bottom: 1px solid darkgray;
+    padding-top: 1em;
+    padding-bottom: 1em;
 }
 
 .comment {
@@ -217,14 +226,3 @@ form input {
     background-color: #1b5ac2;
 }
 
-.commentCreate {
-    display: block;
-    width: 70%;
-    margin: 0 auto 1em;
-    border-top: 1px solid grey;
-}
-
-.commentCreate:last-child {
-    padding-bottom: 1em;
-    border-bottom: 1px solid grey;
-}

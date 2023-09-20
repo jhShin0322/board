@@ -19,16 +19,5 @@ public class CommentController {
         this.commentService = commentService;
     }
 
-    @PostMapping("/addComment")
-    @ResponseBody
-    public String addComment(@RequestBody Comment comment) {
-        commentService.addComment(comment);
-        return "success";
-    }
 
-    @GetMapping("/getComments")
-    @ResponseBody
-    public List<Comment> getComments() {
-        return commentService.getComments();
-    }
 }

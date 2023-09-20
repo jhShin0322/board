@@ -6,5 +6,5 @@ import java.util.List;
 @Mapper
 public interface CommentMapper {
     void insertComment(Comment comment);
-    List<Comment> getComments();
+    List<Comment> getComments(Integer bno);
 }

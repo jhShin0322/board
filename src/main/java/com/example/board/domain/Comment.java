@@ -12,8 +12,12 @@ public class Comment {
     private Integer bno;
     private String content;
     private String commenter;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "UTC")
     private Date regDate;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "UTC")
     private Date upDate;
+
+    public Comment(Integer bno, String commenter, String content) {
+        this.bno = bno;
+        this.commenter = commenter;
+        this.content = content;
+    }
 }

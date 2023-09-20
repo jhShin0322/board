@@ -19,5 +19,12 @@ public class CommentController {
         this.commentService = commentService;
     }
 
-
+    @PostMapping("/comments")
+    public String addComment(Integer bno, String commenter, String comment, Model model) {
+        Comment commentDto = new Comment(bno, commenter, comment);
+        commentService.addComment(commentDto);
+        List<Comment> comments = commentService.getComments(bno);
+        model.addAttribute("comments", comments);
+        return "redirect:/board/list";
+    }
 }

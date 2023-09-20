@@ -200,7 +200,12 @@ form input {
     resize: none;
 }
 
+.comment:focus {
+    outline: none;
+}
+
 #submitComment {
+    width: 70px;
     background-color: #000077;
     border: none;
     color: white;

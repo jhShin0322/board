@@ -17,7 +17,7 @@ public class CommentService {
     public void addComment(Comment comment) {
         commentMapper.insertComment(comment);
     }
-    public List<Comment> getComments() {
-        return commentMapper.getComments();
+    public List<Comment> getComments(Integer bno) {
+        return commentMapper.getComments(bno);
     }
 }

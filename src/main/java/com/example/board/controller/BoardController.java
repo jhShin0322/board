@@ -1,10 +1,8 @@
 package com.example.board.controller;
 
-import com.example.board.domain.BoardDto;
-import com.example.board.domain.PageHandler;
-import com.example.board.domain.SearchCondition;
-import com.example.board.domain.User;
+import com.example.board.domain.*;
 import com.example.board.service.BoardService;
+import com.example.board.service.CommentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,10 +19,12 @@ import java.util.Map;
 public class BoardController {
 
     private final BoardService boardService;
+    private final CommentService commentService;
 
     @Autowired
-    public BoardController(BoardService boardService) {
+    public BoardController(BoardService boardService, CommentService commentService) {
         this.boardService = boardService;
+        this.commentService = commentService;
     }
 
     @GetMapping("/list")
@@ -68,10 +68,12 @@ public class BoardController {
     public String read(Integer bno, Integer page, Integer pageSize, Model model,
                        @SessionAttribute(name = "loginUser", required = false) User loginUser) {
         BoardDto boardDto = boardService.read(bno);
+        List<Comment> comments = commentService.getComments(bno);
         model.addAttribute("user", loginUser);
         model.addAttribute("boardDto", boardDto);
         model.addAttribute("page", page);
         model.addAttribute("pageSize", pageSize);
+        model.addAttribute("comments", comments);
         return "boardR";
     }
 

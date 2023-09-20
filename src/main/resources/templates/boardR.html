@@ -47,13 +47,20 @@
   <h3 class="writing-header">전체 댓글</h3>
   <div id="commentList">
     <!-- 댓글 목록이 여기에 동적으로 추가될 것입니다. -->
+    <table>
+    <th:block th:each="comment : ${comments}">
+      <tr>
+        <td th:text="${comment.commenter}"></td><td th:text="${comment.content}"></td>
+      </tr>
+    </th:block>
+    </table>
   </div>
-  <form id="commentForm">
-    <input type="hidden" id="bno" th:value="${boardDto.bno}">
-    <input type="hidden" th:if="${user!=null}" th:id="commenter" th:value="${user.name}">
-    <input type="hidden" th:unless="${user!=null}" th:id="commenter" th:value="'익명 사용자'">
-    <textarea class="comment" name="comment" id="comment" cols="30" rows="6" placeholder="댓글을 입력하세요"></textarea>
-    <button type="button" id="submitComment">댓글 등록</button>
+  <form id="commentForm" method="post" th:action="@{/comments}">
+    <input type="hidden" id="bno" name="bno" th:value="${boardDto.bno}">
+    <input type="hidden" th:name="commenter" th:if="${user!=null}"  th:value="${user.id}">
+    <input type="hidden" th:name="commenter" th:unless="${user!=null}"  th:value="'익명 사용자'">
+    <textarea class="comment" th:name="comment" id="comment" cols="30" rows="6" placeholder="댓글을 입력하세요"></textarea>
+    <input type="submit" id="submitComment" th:value="등록">
   </form>
 </div>
 

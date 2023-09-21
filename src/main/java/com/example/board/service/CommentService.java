@@ -21,4 +21,8 @@ public class CommentService {
     public List<Comment> getComments(Integer bno) {
         return commentMapper.getComments(bno);
     }
+    public void deleteComment(Integer cno, Integer bno) {
+        commentMapper.deleteComment(cno, bno);
+        commentMapper.downViewCnt(bno);
+    }
 }

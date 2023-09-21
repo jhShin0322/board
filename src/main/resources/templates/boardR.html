@@ -52,7 +52,13 @@
           <td th:text="${comment.commenter}" style="width: 200px"></td>
           <td th:text="${comment.content}" style="width: 930px"></td>
           <td th:text="${#dates.format(comment.regDate, 'yyyy-MM-dd HH:mm:ss')}" style="width: 170px;"></td>
-          <td><button id="deleteComment">X</button></td>
+          <td>
+            <form th:action="@{/deleteComments}" method="post">
+              <input type="hidden" name="cno" th:value="${comment.cno}">
+              <input type="hidden" name="bno" th:value="${comment.bno}">
+              <button type="submit" id="deleteComment">X</button>
+            </form>
+          </td>
         </tr>
       </table>
     </div>
@@ -71,7 +77,8 @@
     document.addEventListener("DOMContentLoaded", function() {
       const listBtn = document.getElementById("listBtn");
       listBtn.addEventListener("click", function() {
-        location.href = /*[[@{/board/list}]]*/;
+        window.location.href = "/board/list";
+        // location.href = /*[[@{/board/list}]]*/;
       });
 
       const removeBtn = document.getElementById("removeBtn");
@@ -87,8 +94,15 @@
       modifyBtn.addEventListener("click", function() {
         location.href = /*[[@{/board/modify(bno=${boardDto.bno})}]]*/;
       });
+
+      const deleteComment = document.getElementById("deleteComment");
+      deleteComment.addEventListener("click", function() {
+        if(!confirm("정말로 삭제하시겠습니까?")) return;
+        window.location.href = "/deleteComments";
+      })
     });
   /*]]>*/
 </script>
+
 </body>
 </html>

@@ -27,4 +27,10 @@ public class CommentController {
         model.addAttribute("comments", comments);
         return "redirect:/board/read?bno=" + bno;
     }
+
+    @PostMapping("/deleteComments")
+    public String deleteComment(Integer cno, Integer bno) {
+        commentService.deleteComment(cno, bno);
+        return "redirect:/board/read?bno=" + bno;
+    }
 }

@@ -95,11 +95,6 @@
         location.href = /*[[@{/board/modify(bno=${boardDto.bno})}]]*/;
       });
 
-      const deleteComment = document.getElementById("deleteComment");
-      deleteComment.addEventListener("click", function() {
-        if(!confirm("정말로 삭제하시겠습니까?")) return;
-        window.location.href = "/deleteComments";
-      })
     });
   /*]]>*/
 </script>

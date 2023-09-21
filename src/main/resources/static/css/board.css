@@ -226,3 +226,10 @@ form input {
     background-color: #1b5ac2;
 }
 
+#deleteComment {
+    background-color: darkgray;
+    color: white;
+    padding: 0.2em;
+    border: none;
+    cursor: pointer;
+}

@@ -7,4 +7,6 @@ import java.util.List;
 public interface CommentMapper {
     void insertComment(Comment comment);
     List<Comment> getComments(Integer bno);
+
+    void downViewCnt(Integer bno);
 }

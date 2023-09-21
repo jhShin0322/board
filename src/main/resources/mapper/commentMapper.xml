@@ -9,4 +9,8 @@
     <select id="getComments" resultType="com.example.board.domain.Comment">
         select * from comment where bno = #{bno};
     </select>
+
+    <update id="downViewCnt" parameterType="Integer">
+        update board set view_cnt = view_cnt - 1;
+    </update>
 </mapper>

@@ -16,6 +16,7 @@ public class CommentService {
     }
     public void addComment(Comment comment) {
         commentMapper.insertComment(comment);
+        commentMapper.downViewCnt(comment.getBno());
     }
     public List<Comment> getComments(Integer bno) {
         return commentMapper.getComments(bno);

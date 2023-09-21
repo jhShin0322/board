@@ -25,6 +25,6 @@ public class CommentController {
         commentService.addComment(commentDto);
         List<Comment> comments = commentService.getComments(bno);
         model.addAttribute("comments", comments);
-        return "redirect:/board/list";
+        return "redirect:/board/read?bno=" + bno;
     }
 }
